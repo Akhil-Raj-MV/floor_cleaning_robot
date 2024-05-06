@@ -33,8 +33,6 @@ void setup() {
   pinMode(IN3, OUTPUT);
   pinMode(IN4, OUTPUT);
 
-  pinMode(A0,INPUT);
-
   // Set ultrasonic sensor pins
    pinMode(TRIG_PIN_f, OUTPUT);
   pinMode(ECHO_PIN_f, INPUT);
@@ -50,6 +48,7 @@ void setup() {
 
 void loop() {  
   helper();
+  //automaticMode();
 }
 
 
@@ -128,44 +127,45 @@ void automaticMode(){
   durationr = pulseIn(ECHO_PIN_r, HIGH);
   distancer = durationr * 0.034 / 2;  // Speed of sound is 0.034 cm per microsecond
 
+  // Serial.print("left: ");
+  // Serial.println(distancel);
+  //   Serial.print("middle: ");
+  // Serial.println(distancef);
+  //   Serial.print("right: ");
+  // Serial.println(distancer);
 
-  if (distancef <= 15) {
-    if (distancer > distancel) {
-      if ((distancer <= 15) && (distancel <= 15)) {
+  if (distancef <= 15) { //15
+    if (distancer >= distancel) {
+      if ((distancer <= 10) && (distancel <= 10)) { // 10,10
         stopMotors();
         delay(200);
         moveReverse();
-        delay(2000);
+        delay(200);
 
       } else {
-        // moveReverse();
-        // delay(500);
         moveRight();
-        delay(1000);
+        delay(500);
 
       }
     } else if (distancer < distancel) {
-      if ((distancer <= 15) && (distancel <= 15)) {
+      if ((distancer <= 10) && (distancel <= 10)) { //15,15
         stopMotors();
         delay(200);
         moveReverse();
-        delay(2000);
+        delay(200);
 
       } else {
-        // moveReverse();
-        // delay(500);
         moveLeft();
-        delay(1000);
-
+        delay(500);
       }
     }
     }
   
-    else if (distancer <= 15) {
+    else if (distancer <= 15) { //15
       moveLeft();
       delay(500);
 
-    } else if (distancel <= 15) {
+    } else if (distancel <= 15) { //15 
       moveRight();
       delay(500);
 
